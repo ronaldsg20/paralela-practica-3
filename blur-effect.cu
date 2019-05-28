@@ -30,7 +30,7 @@
         for (int j = y-(kernel/2); j < y+(kernel/2); j++)
         {
             //check if the point is in the image limits
-            if(0<=i && i<width-1 && 0<=j && j<height-1){
+            if(0<=i && i<w-1 && 0<=j && j<h-1){
                 pixel_pos = (i*w*3)+(j*3);
                 blue += input[pixel_pos+0];
                 green += input[pixel_pos+1];
@@ -64,7 +64,7 @@
     int fin = (int)(width/totalThreads)+ini;
     for (int i = ini; i < fin; i++)
     {
-        for (int j = 0; j < height; j++)
+        for (int j = 0; j < &height; j++)
         {
             aplyBlur(i,j,*kernel, *width,*height,input, output);
         }
@@ -107,8 +107,8 @@
         printf("No image data \n");
         return -1;
     }
-    width = input.cols;
-    height =input.rows;
+    h_width = input.cols;
+    h_height =input.rows;
     // define the output as a clone of input image
     output = input.clone();
 
@@ -123,17 +123,17 @@
      cudaMalloc(d_width,sizeof(int));
      cudaMalloc(d_threads,sizeof(int));
 
-     cudaMalloc(&d_input,width*height*sizeof(int)*3);
-     cudaMalloc(&d_output,width*height*sizeof(int)*3);
+     cudaMalloc(&d_input,h_width*h_height*sizeof(int)*3);
+     cudaMalloc(&d_output,h_width*h_height*sizeof(int)*3);
      
-     malloc(&h_input,width*height*sizeof(int)*3);
-     malloc(&h_output,width*height*sizeof(int)*3);
+     malloc(&h_input,h_width*h_height*sizeof(int)*3);
+     malloc(&h_output,h_width*h_height*sizeof(int)*3);
 
      // set initial values
      Vec3b pixel;
 
-     for(int i=0;i<width;i++){
-       for(int j=0;j<height;j++){
+     for(int i=0;i<h_width;i++){
+       for(int j=0;j<h_height;j++){
         pixel = input.at<Vec3b>(Point(i,j));
         h_input[(j*width*3)+(i*3)+0]= pixel.val(0);
         h_input[(j*width*3)+(i*3)+1]= pixel.val(1);
@@ -156,10 +156,10 @@
      blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
      // MemCpy: device to host
-     cudaMemcpy(h_output, d_output, sizeof(int)*width*height*3, cudaMemcpyDeviceToHost);
+     cudaMemcpy(h_output, d_output, sizeof(int)*h_width*h_height*3, cudaMemcpyDeviceToHost);
 
-     for(int i=0;i<width;i++){
-       for(int j=0;j<height;j++){
+     for(int i=0;i<h_width;i++){
+       for(int j=0;j<h_height;j++){
         
         pixel = Vec3b(h_output[(j*width*3)+(i*3)+0],h_output[(j*width*3)+(i*3)+1], h_output[(j*width*3)+(i*3)+2]);
         output.at<Vec3b>(Point(i,j))= pixel;
