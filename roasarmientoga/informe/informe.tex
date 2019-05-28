@@ -1,0 +1,177 @@
+
+%% bare_conf.tex
+%% V1.4
+%% 2012/12/27
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8 or later) with an IEEE conference paper.
+%%
+\documentclass{IEEEtran}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{cite}
+\usepackage{graphicx}  
+\usepackage{subfig}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+% Do not put math or special symbols in the title.
+\title{Práctica 1 - Difuminado de imagen POSIX}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Ronald Alexander Sarmiento Galviz\\}
+\IEEEauthorblockA{Universidad Nacional Bogotá, Colombia \\
+Email:roasarmientoga@unal.edu.co\\}
+}
+
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract
+\begin{abstract}
+Se implementa un algoritmo de difuminado de imagen para paralelizar 
+y evaluar en varios casos de prueba su eficiencia. Se concluye que debido 
+a las caracteristicas del equipo es mas eficiente paralelizar, usualmente
+no suman eficiencia lanzar mas de 4 hilos.
+\end{abstract}
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introducción.}
+
+
+\subsection{Difuminado de imagen (Blur)}
+El algoritmo de difuminado de imagen consiste en intercambiar 
+cada pixel por un promedio de los valores RGB que se encuentran en 
+los pixeles adyacentes a él. El nivel de difuminado, o kernel determina
+ la aplitud del rango que se toma para evaluar el promedio. Es decir, 
+ si se escoge un kernel de 5 significa que cada pixel será cambiado por 
+ el promedio que hay en los pixeles de la matriz 5 x 5 cuyo centro es el 
+ pixel en cuestión.
+
+
+\section{Paralelización del algoritmo.}
+Para distribuir la carga se tomó en ancho de la imagen de entrada
+ y se dividió en el numero de hilos, asi cada hilo procesa una 
+ imagen de $(width/THREADS) x \ height$.
+
+
+
+\section{Experimentos y resultados.}
+EL algoritmo se probó usando variando el kernel y numero de hilos para
+3 tipos de imagenes (720px , 1080 px y 4K). Con los valores 
+$kernel:{4,6,8,10,12,14} \ hilos:{2,4,8,16} $
+\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=4.0in]{imagen-720px.png}
+\caption{Speedup vs kernel - imagen 720px }
+\label{fig_sim}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=4.0in]{imagen-1080px.png}
+\caption{Speedup vs kernel - imagen 1080px }
+\label{fig_sim}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=4.0in]{imagen-4K.png}
+\caption{Speedup vs kernel - imagen 4K }
+\label{fig_sim}
+\end{figure}
+
+Las siguientes tablas muestran el Speedup para los casos de cada imagen.
+\begin{table}[h]
+\begin{tabular}{lllll}
+\hline
+720             & Speedup          &                  &                  &                   \\ \hline
+\textbf{Kernel} & \textbf{2 Hilos} & \textbf{4 Hilos} & \textbf{8 Hilos} & \textbf{16 Hilos} \\
+4               & 0,8174157303     & 1,141176471      & 1,106463878      & 1,093984962       \\
+6               & 1,013333333      & 1,288135593      & 1,301369863      & 1,310344828       \\
+8               & 1,257978723      & 1,367052023      & 1,351428571      & 1,351428571       \\
+10              & 1,365296804      & 1,472906404      & 1,483870968      & 1,469287469       \\
+12              & 1,49112426       & 1,558762887      & 1,558762887      & 1,5782881         \\
+14              & 15,32786885      & 1,623263889      & 1,620450607      & 1,612068966       \\ \hline
+\end{tabular}
+\caption{Valores Speedup para imagen 720px}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{lllll}
+\hline
+1080            & Speedup          &                  &                  &                   \\ \hline
+\textbf{Kernel} & \textbf{2 Hilos} & \textbf{4 Hilos} & \textbf{8 Hilos} & \textbf{16 Hilos} \\
+4               & 1,311764706      & 1,319526627      & 1,363914373      & 1,347432024       \\
+6               & 1,430523918      & 1,457076566      & 1,463869464      & 1,460465116       \\
+8               & 1,803691275      & 1,909413854      & 1,8728223        & 1,933453237       \\
+10              & 1,940414508      & 2,083449235      & 1,973649539      & 2,01615074        \\
+12              & 1,869035533      & 1,998914224      & 1,994582882      & 1,992424242       \\
+14              & 1,76607717       & 1,892334195      & 1,895599655      & 1,905464007       \\ \hline
+\end{tabular}
+\caption{Valores Speedup para imagen 1080px}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{lllll}
+\hline
+4K              & Speedup          &                  &                  &                   \\ \hline
+\textbf{Kernel} & \textbf{2 Hilos} & \textbf{4 Hilos} & \textbf{8 Hilos} & \textbf{16 Hilos} \\
+4               & 1,617977528      & 1,746967071      & 1,730967373      & 1,751013318       \\
+6               & 1,894245723      & 2,067911715      & 2,100724388      & 2,089910776       \\
+8               & 1,648994841      & 2,048850575      & 2,039832746      & 2,04839779        \\
+10              & 1,932943795      & 2,0839958        & 2,001728858      & 1,965483095       \\
+12              & 1,795095635      & 1,939692634      & 1,900415369      & 1,920558296       \\
+14              & 1,842920354      & 1,891699295      & 1,877438408      & 1,818777293       \\ \hline
+\end{tabular}
+\caption{Valores Speedup para imagen 4K}
+\end{table}
+
+
+\section*{Conclusiones.}
+La practica muestra que el algoritmo de difuminado es paralelizable, sin embargo
+demuestra que la eficiencia de la paralelización tiene un pico facilmente acotable
+por lo que para calculos extensos no es necesario paralelizar con hilos a un numero mayor al
+de los cores del equipo.
+
+
+
+
+% that's all folks
+\end{document}
+
+
