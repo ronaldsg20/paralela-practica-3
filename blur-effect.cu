@@ -135,19 +135,19 @@
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         pixel = input.at<Vec3b>(Point(i,j));
-        h_input[(j*h_width*3)+(i*3)+0]= pixel.val(0);
-        h_input[(j*h_width*3)+(i*3)+1]= pixel.val(1);
-        h_input[(j*h_width*3)+(i*3)+2]= pixel.val(2);
+        h_input[j*h_width*3+i*3+0]= pixel.val(0);
+        h_input[j*h_width*3+i*3+1]= pixel.val(1);
+        h_input[j*h_width*3+i*3+2]= pixel.val(2);
        }
      }
 
      // MemCpy: host to device
 
      cudaMemcpy(d_input, h_input, size, cudaMemcpyHostToDevice);
-     cudaMemcpy(d_kernel, h_kernel, sizeof(int), cudaMemcpyHostToDevice);
-     cudaMemcpy(d_threads, h_threads, sizeof(int), cudaMemcpyHostToDevice);
-     cudaMemcpy(d_width, h_width, sizeof(int), cudaMemcpyHostToDevice);
-     cudaMemcpy(d_height, h_height, sizeof(int), cudaMemcpyHostToDevice);
+     cudaMemcpy(d_kernel, (int *)h_kernel, sizeof(int), cudaMemcpyHostToDevice);
+     cudaMemcpy(d_threads, (int *)h_threads, sizeof(int), cudaMemcpyHostToDevice);
+     cudaMemcpy(d_width, (int *)h_width, sizeof(int), cudaMemcpyHostToDevice);
+     cudaMemcpy(d_height, (int *)h_height, sizeof(int), cudaMemcpyHostToDevice);
 
      // define blocks 
 
@@ -161,7 +161,7 @@
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
-        pixel = Vec3b(h_output[(j*width*3)+(i*3)+0],h_output[(j*width*3)+(i*3)+1], h_output[(j*width*3)+(i*3)+2]);
+        pixel = Vec3b(h_output[(j*h_width*3)+(i*3)+0],h_output[(j*h_width*3)+(i*3)+1], h_output[(j*h_width*3)+(i*3)+2]);
         output.at<Vec3b>(Point(i,j))= pixel;
        }
      }
