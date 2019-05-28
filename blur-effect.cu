@@ -64,7 +64,7 @@
     int fin = (int)((int)width/(int)totalThreads)+ini;
     for (int i = ini; i < fin; i++)
     {
-        for (int j = 0; j < &height; j++)
+        for (int j = 0; j < (int)height; j++)
         {
             aplyBlur(i,j,*kernel, *width,*height,input, output);
         }
@@ -118,16 +118,16 @@
     int *h_output;
 
      // malloc and cudaMalloc
-     cudaMalloc(d_height,sizeof(int));
-     cudaMalloc(d_kernel,sizeof(int));
-     cudaMalloc(d_width,sizeof(int));
-     cudaMalloc(d_threads,sizeof(int));
+     cudaMalloc(&d_height,sizeof(int));
+     cudaMalloc(&d_kernel,sizeof(int));
+     cudaMalloc(&d_width,sizeof(int));
+     cudaMalloc(&d_threads,sizeof(int));
 
      cudaMalloc(&d_input,h_width*h_height*sizeof(int)*3);
      cudaMalloc(&d_output,h_width*h_height*sizeof(int)*3);
      
-     malloc(&h_input,h_width*h_height*sizeof(int)*3);
-     malloc(&h_output,h_width*h_height*sizeof(int)*3);
+     malloc(&h_input,(int)(h_width * h_height) * sizeof(int)*3);
+     malloc(&h_output,(int)(h_width * h_height) * sizeof(int)*3);
 
      // set initial values
      Vec3b pixel;
