@@ -125,9 +125,9 @@
 
      cudaMalloc(&d_input,h_width*h_height*sizeof(int)*3);
      cudaMalloc(&d_output,h_width*h_height*sizeof(int)*3);
-     
-     malloc(&h_input,(int)(h_width * h_height) * sizeof(int)*3);
-     malloc(&h_output,(int)(h_width * h_height) * sizeof(int)*3);
+     size_t size = h_width * h_height * 3 * sizeof(int);
+     malloc(&h_input,size);
+     malloc(&h_output,size);
 
      // set initial values
      Vec3b pixel;
@@ -135,15 +135,15 @@
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         pixel = input.at<Vec3b>(Point(i,j));
-        h_input[(j*width*3)+(i*3)+0]= pixel.val(0);
-        h_input[(j*width*3)+(i*3)+1]= pixel.val(1);
-        h_input[(j*width*3)+(i*3)+2]= pixel.val(2);
+        h_input[(j*h_width*3)+(i*3)+0]= pixel.val(0);
+        h_input[(j*h_width*3)+(i*3)+1]= pixel.val(1);
+        h_input[(j*h_width*3)+(i*3)+2]= pixel.val(2);
        }
      }
 
      // MemCpy: host to device
 
-     cudaMemcpy(d_input, h_input, sizeof(int)*width*height*3, cudaMemcpyHostToDevice);
+     cudaMemcpy(d_input, h_input, size, cudaMemcpyHostToDevice);
      cudaMemcpy(d_kernel, h_kernel, sizeof(int), cudaMemcpyHostToDevice);
      cudaMemcpy(d_threads, h_threads, sizeof(int), cudaMemcpyHostToDevice);
      cudaMemcpy(d_width, h_width, sizeof(int), cudaMemcpyHostToDevice);
