@@ -60,8 +60,8 @@
      
     int tn = (blockDim.x * blockIdx.x) + threadIdx.x;
     
-    int ini = (int)(width/totalThreads)*(tn-1);
-    int fin = (int)(width/totalThreads)+ini;
+    int ini = (int)((int)width/(int)totalThreads)*(tn-1);
+    int fin = (int)((int)width/(int)totalThreads)+ini;
     for (int i = ini; i < fin; i++)
     {
         for (int j = 0; j < &height; j++)
