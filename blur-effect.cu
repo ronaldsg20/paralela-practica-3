@@ -24,7 +24,7 @@
     blue=green=red=0;
     int n=0;
     int pixel_pos;
-    int k= (int)*kernel
+    int k= (int)*kernel;
 
     for(int i = x - (k/2); i < x+(k/2); i++)
     {    
