@@ -114,8 +114,8 @@
     // define the output as a clone of input image
     output = input.clone();
     imwrite( oFile, output ); // just for test
-    
-    printf(" Processing image %s \n width: %d  - Heigh : %d \n",argv[1],width,height);
+
+    printf(" Processing image %s \n width: %d  - Heigh : %d \n",argv[1],h_width,h_height);
 
     printf("Kernel : %d   Threads x Block: %d   # of Blocks: %d \n",h_kernel,threadsXblock,blocks);
 
