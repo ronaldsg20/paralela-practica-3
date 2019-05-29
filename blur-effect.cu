@@ -60,11 +60,11 @@
      
     int tn = (blockDim.x * blockIdx.x) + threadIdx.x+1;
     
-    int ini = (int)((int)width/(int)totalThreads)*(tn);
-    int fin = (int)((int)width/(int)totalThreads)+ini;
+    int ini = (int)((int)*width/(int)*totalThreads)*(tn);
+    int fin = (int)((int)*width/(int)*totalThreads)+ini;
     for (int i = ini; i < fin; i++)
     {
-        for (int j = 0; j < (int)height; j++)
+        for (int j = 0; j < (int)*height; j++)
         {
             aplyBlur(i,j,*kernel, *width,*height,input, output);
         }
