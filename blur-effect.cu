@@ -41,7 +41,7 @@
             }
         }
     }
-    
+    pixel_pos = (x*((int)*w)*3)+(y*3);
     if(n!=0){
          //write the average on the output image
         output[pixel_pos+0]=blue/n;
