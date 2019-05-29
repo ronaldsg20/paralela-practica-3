@@ -58,9 +58,9 @@
  __global__ void blur(int *input,int *output, int *kernel, int *totalThreads, int *width, int *height)
  {   
      
-    int tn = (blockDim.x * blockIdx.x) + threadIdx.x;
+    int tn = (blockDim.x * blockIdx.x) + threadIdx.x+1;
     
-    int ini = (int)((int)width/(int)totalThreads)*(tn-1);
+    int ini = (int)((int)width/(int)totalThreads)*(tn);
     int fin = (int)((int)width/(int)totalThreads)+ini;
     for (int i = ini; i < fin; i++)
     {
@@ -131,33 +131,33 @@
      // malloc and cudaMalloc
      error = cudaMalloc(&d_height,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to allocate mem for d_height (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_kernel,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to allocate mem for d_kernel (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_width,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to allocate mem for d_width (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_threads,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to allocate mem for d_threads (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
 
      error = cudaMalloc(&d_input,h_width*h_height*sizeof(int)*3);
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to allocate mem for d_input (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_output,h_width*h_height*sizeof(int)*3);
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to allocate mem for d_output (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
 
@@ -213,7 +213,7 @@
         fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    printf("CudaMemcpy host to device done.");
+    printf("CudaMemcpy host to device done.\n");
 
      // Launch kernel 
      
