@@ -25,14 +25,15 @@
     int n=0;
     int pixel_pos;
     int k= (int)*kernel;
+    //int wt = (int)*w;
 
     for(int i = x - (k/2); i < x+(k/2); i++)
     {    
         for (int j = y-(k/2); j < y+(k/2); j++)
         {
             //check if the point is in the image limits
-            if(0<=i && i<w-1 && 0<=j && j<h-1){
-                pixel_pos = (i*w*3)+(j*3);
+            if(0<=i && i<((int)*w)-1 && 0<=j && j<((int)*h)-1){
+                pixel_pos = (i*((int)*w)*3)+(j*3);
                 blue += input[pixel_pos+0];
                 green += input[pixel_pos+1];
                 red += input[pixel_pos+2];
