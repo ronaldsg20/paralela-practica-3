@@ -18,7 +18,7 @@
 
 // function aviable only on the device
 
-  __device__ void aplyBlur(int &x, int &y, int &kernel, int &w, int &h, int *input, int *output){
+  __device__ void aplyBlur(const int &x, const int &y, int &kernel, const int &w, const int &h, int *input, int *output){
     // collect the average data of neighbours 
     int blue,green,red;
     blue=green=red=0;
