@@ -79,10 +79,10 @@
  int main(int argc, char **argv)
  {   
      // define variables
-     int *h_threads=(int*)malloc(sizeof(int));
-     int *h_kernel=(int*)malloc(sizeof(int));
-     int *h_width=(int*)malloc(sizeof(int));
-     int *h_height=(int*)malloc(sizeof(int));
+     int h_threads;
+     int h_kernel,
+     int h_width,
+     int h_height;
 
      int *d_threads;
      int *d_kernel;
@@ -100,10 +100,10 @@
         printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS X BLOCK> <BLOCKS>\n");
         return -1;
     }
-    *h_kernel = atoi(argv[3]);
+    h_kernel = atoi(argv[3]);
     int threadsXblock = atoi(argv[4]);
     int blocks = atoi(argv[5]);
-    *h_threads = threadsXblock* blocks;
+    h_threads = threadsXblock* blocks;
     String oFile = argv[2];
 
     //read the image and set width and height
@@ -113,8 +113,8 @@
         printf("No image data \n");
         return -1;
     }
-    *h_width = input.cols;
-    *h_height =input.rows;
+    h_width = input.cols;
+    h_height =input.rows;
     // define the output as a clone of input image
     output = input.clone();
     //imwrite( oFile, output ); // just for test
@@ -193,28 +193,27 @@
         fprintf(stderr, "Failed to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_kernel, h_kernel, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_kernel, &h_kernel, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device(error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_threads, h_threads, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_threads, &h_threads, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_width, h_width, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_width, &h_width, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_height, h_height, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_height, &h_height, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-
-     // define blocks 
+    printf("CudaMemcpy host to device done.");
 
      // Launch kernel 
      
