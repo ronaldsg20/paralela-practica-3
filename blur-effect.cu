@@ -24,10 +24,11 @@
     blue=green=red=0;
     int n=0;
     int pixel_pos;
+    int k= (int)*kernel
 
-    for(int i = x - (kernel/2); i < x+(kernel/2); i++)
+    for(int i = x - (k/2); i < x+(k/2); i++)
     {    
-        for (int j = y-(kernel/2); j < y+(kernel/2); j++)
+        for (int j = y-(k/2); j < y+(k/2); j++)
         {
             //check if the point is in the image limits
             if(0<=i && i<w-1 && 0<=j && j<h-1){
