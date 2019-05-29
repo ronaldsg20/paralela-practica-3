@@ -121,38 +121,38 @@
 
      // malloc and cudaMalloc
      error = cudaMalloc(&d_height,sizeof(int));
-     if (err != cudaSuccess){
+     if (error != cudaSuccess){
         fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_kernel,sizeof(int));
-     if (err != cudaSuccess){
+     if (error != cudaSuccess){
         fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_width,sizeof(int));
-     if (err != cudaSuccess){
+     if (error != cudaSuccess){
         fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_threads,sizeof(int));
-     if (err != cudaSuccess){
+     if (error != cudaSuccess){
         fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
 
      error = cudaMalloc(&d_input,h_width*h_height*sizeof(int)*3);
-     if (err != cudaSuccess){
+     if (error != cudaSuccess){
         fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_output,h_width*h_height*sizeof(int)*3);
-     if (err != cudaSuccess){
+     if (error != cudaSuccess){
         fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
 
-    
+
      size_t size = h_width * h_height * 3 * sizeof(int);
      h_input = (int *)malloc(size);
      h_output = (int *)malloc(size);
