@@ -130,8 +130,8 @@
      h_output = (int *)malloc(size);
 
      // set initial values
-     Vec3b pixel;
-     pixel = input.at<Vec3b>(Point(i,j));
+     //Vec3b pixel;
+     //pixel = input.at<Vec3b>(Point(i,j));
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
