@@ -79,7 +79,11 @@
  int main(int argc, char **argv)
  {   
      // define variables
-     int h_threads, h_kernel,h_width,h_height;
+     int *h_threads=(int*)malloc(sizeof(int));
+     int *h_kernel=(int*)malloc(sizeof(int));
+     int *h_width=(int*)malloc(sizeof(int));
+     int *h_height=(int*)malloc(sizeof(int));
+
      int *d_threads;
      int *d_kernel;
      int *d_width;
@@ -189,22 +193,22 @@
         fprintf(stderr, "Failed to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_kernel, (int *)h_kernel, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_kernel, h_kernel, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device(error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_threads, (int *)h_threads, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_threads, h_threads, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_width, (int *)h_width, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_width, h_width, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
-    error = cudaMemcpy(d_height, (int *)h_height, sizeof(int), cudaMemcpyHostToDevice);
+    error = cudaMemcpy(d_height, h_height, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
