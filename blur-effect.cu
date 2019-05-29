@@ -230,13 +230,13 @@
         exit(EXIT_FAILURE);
     }
 
-    printf("MODIFIED IMAGE");
+    printf("MODIFIED IMAGE \n");
 
     for(int t =0;t<20;t++){
         for (int k=0;k<20;k++){
            printf("[%d , %d , %d] ",h_output[(k*h_width*3)+(t*3)+0],h_output[(k*h_width*3)+(t*3)+1], h_output[(k*h_width*3)+(t*3)+2]);
         }
-        printf("/n");
+        printf("\n");
     }
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
