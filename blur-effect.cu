@@ -80,8 +80,8 @@
  {   
      // define variables
      int h_threads;
-     int h_kernel,
-     int h_width,
+     int h_kernel;
+     int h_width;
      int h_height;
 
      int *d_threads;
