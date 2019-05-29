@@ -55,7 +55,7 @@
   */ 
  /*****************************************************************************/
  
- __global__ void blur(int *input,int *output, int kernel, int totalThreads, int width, int height)
+ __global__ void blur(int *input,int *output, int &kernel, int &totalThreads, int &width, int &height)
  {   
      
     int tn = (blockDim.x * blockIdx.x) + threadIdx.x+1;
@@ -64,7 +64,7 @@
     int fin = (int)((int)width/(int)totalThreads)+ini;
     for (int i = ini; i < fin; i++)
     {
-        for (int j = 0; j < (int)*height; j++)
+        for (int j = 0; j < (int)height; j++)
         {
             aplyBlur(i,j,kernel, width, height,input, output);
         }
@@ -217,7 +217,7 @@
 
      // Launch kernel 
      
-     blur<<<blocks,threadsXblock>>>(d_input,d_output, &d_kernel, &d_threads, &d_width, &d_height);
+     blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
      //last error
      error = cudaGetLastError();
