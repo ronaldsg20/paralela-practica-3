@@ -66,7 +66,7 @@
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
     for (int i = ini; i < fin; i++)
     {
-        for (int j = 0; j < (int)height; j++)
+        for (int j = 0; j < (int)*height; j++)
         {
             aplyBlur(i,j,kernel, width, height,input, output);
         }
