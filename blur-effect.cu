@@ -171,11 +171,31 @@
 
      // MemCpy: host to device
 
-     cudaMemcpy(d_input, h_input, size, cudaMemcpyHostToDevice);
-     cudaMemcpy(d_kernel, (int *)h_kernel, sizeof(int), cudaMemcpyHostToDevice);
-     cudaMemcpy(d_threads, (int *)h_threads, sizeof(int), cudaMemcpyHostToDevice);
-     cudaMemcpy(d_width, (int *)h_width, sizeof(int), cudaMemcpyHostToDevice);
-     cudaMemcpy(d_height, (int *)h_height, sizeof(int), cudaMemcpyHostToDevice);
+     error = cudaMemcpy(d_input, h_input, size, cudaMemcpyHostToDevice);
+     if (error != cudaSuccess){
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        exit(EXIT_FAILURE);
+    }
+    error = cudaMemcpy(d_kernel,h_kernel, sizeof(int), cudaMemcpyHostToDevice);
+    if (error != cudaSuccess){
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        exit(EXIT_FAILURE);
+    }
+    error = cudaMemcpy(d_threads, h_threads, sizeof(int), cudaMemcpyHostToDevice);
+    if (error != cudaSuccess){
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        exit(EXIT_FAILURE);
+    }
+    error = cudaMemcpy(d_width, h_width, sizeof(int), cudaMemcpyHostToDevice);
+    if (error != cudaSuccess){
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        exit(EXIT_FAILURE);
+    }
+    error = cudaMemcpy(d_height, h_height, sizeof(int), cudaMemcpyHostToDevice);
+    if (error != cudaSuccess){
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        exit(EXIT_FAILURE);
+    }
 
      // define blocks 
 
