@@ -165,7 +165,7 @@
      // set initial values
      Vec3b pixel;
      //pixel = input.at<Vec3b>(Point(i,j));
-     printf("ORIGINAL IMAGE");
+     printf("ORIGINAL IMAGE \n");
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
@@ -179,7 +179,7 @@
          for (int k=0;k<20;k++){
             printf("[%d , %d , %d] ",h_input[(k*h_width*3)+(t*3)+0],h_input[(k*h_width*3)+(t*3)+1], h_input[(k*h_width*3)+(t*3)+2]);
          }
-         printf("/n");
+         printf("\n");
      }
 
      // MemCpy: host to device
