@@ -122,33 +122,33 @@
      // malloc and cudaMalloc
      error = cudaMalloc(&d_height,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_kernel,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_width,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_threads,sizeof(int));
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
 
      error = cudaMalloc(&d_input,h_width*h_height*sizeof(int)*3);
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
      error = cudaMalloc(&d_output,h_width*h_height*sizeof(int)*3);
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(err));
+        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
 
