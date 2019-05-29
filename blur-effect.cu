@@ -89,7 +89,7 @@
      Mat input;
 
      //read parameters
-     if ( argc != 5 )
+     if ( argc != 6 )
     {
         printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS X BLOCK> <BLOCKS>\n");
         return -1;
