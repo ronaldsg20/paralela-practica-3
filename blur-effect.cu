@@ -126,8 +126,8 @@
      cudaMalloc(&d_input,h_width*h_height*sizeof(int)*3);
      cudaMalloc(&d_output,h_width*h_height*sizeof(int)*3);
      size_t size = h_width * h_height * 3 * sizeof(int);
-     h_input = malloc(size);
-     h_output = malloc(size);
+     h_input = (int *)malloc(size);
+     h_output = (int *)malloc(size);
 
      // set initial values
      Vec3b pixel;
