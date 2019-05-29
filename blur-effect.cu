@@ -113,7 +113,7 @@
     h_height =input.rows;
     // define the output as a clone of input image
     output = input.clone();
-    imwrite( oFile, output ); // just for test
+    //imwrite( oFile, output ); // just for test
 
     printf(" Processing image %s \n width: %d  - Heigh : %d \n",argv[1],h_width,h_height);
 
@@ -165,13 +165,16 @@
      // set initial values
      Vec3b pixel;
      //pixel = input.at<Vec3b>(Point(i,j));
+     printf("ORIGINAL IMAGE");
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
-        h_input[j*h_width*3+i*3+0]= input.at<Vec3b>(i,j)[0];
-        h_input[j*h_width*3+i*3+1]= input.at<Vec3b>(i,j)[1];
-        h_input[j*h_width*3+i*3+2]= input.at<Vec3b>(i,j)[2];
+        h_input[(j*h_width*3)+(i*3)+0]= input.at<Vec3b>(i,j)[0];
+        h_input[(j*h_width*3)+(i*3)+1]= input.at<Vec3b>(i,j)[1];
+        h_input[(j*h_width*3)+(i*3)+2]= input.at<Vec3b>(i,j)[2];
+        printf("[%d , %d , %d] ",h_input[(j*h_width*3)+(i*3)+0],h_input[(j*h_width*3)+(i*3)+1], h_input[(j*h_width*3)+(i*3)+2]);
        }
+       printf("/n");
      }
 
      // MemCpy: host to device
@@ -221,12 +224,17 @@
         fprintf(stderr, "Failed to  to copy from device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
+
+    printf("MODIFIED IMAGE");
+
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
         pixel = Vec3b(h_output[(j*h_width*3)+(i*3)+0],h_output[(j*h_width*3)+(i*3)+1], h_output[(j*h_width*3)+(i*3)+2]);
         output.at<Vec3b>(Point(i,j))= pixel;
+        printf("[%d , %d , %d] ",h_output[(j*h_width*3)+(i*3)+0],h_output[(j*h_width*3)+(i*3)+1], h_output[(j*h_width*3)+(i*3)+2]);
        }
+       printf("/n");
      }
 
      // save data
