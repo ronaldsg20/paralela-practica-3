@@ -98,7 +98,7 @@
     }
     h_kernel = atoi(argv[3]);
     int threadsXblock = atoi(argv[4]);
-    int blocks = atoi(argv[4]);
+    int blocks = atoi(argv[5]);
     h_threads = threadsXblock* blocks;
     String oFile = argv[2];
 
@@ -173,27 +173,27 @@
 
      error = cudaMemcpy(d_input, h_input, size, cudaMemcpyHostToDevice);
      if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
     error = cudaMemcpy(d_kernel, (int *)h_kernel, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to  to copy on device(error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
     error = cudaMemcpy(d_threads, (int *)h_threads, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
     error = cudaMemcpy(d_width, (int *)h_width, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
     error = cudaMemcpy(d_height, (int *)h_height, sizeof(int), cudaMemcpyHostToDevice);
     if (error != cudaSuccess){
-        fprintf(stderr, "Failed to allocate device vector C (error code %s)!\n", cudaGetErrorString(error));
+        fprintf(stderr, "Failed to  to copy on device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
     }
 
@@ -203,9 +203,19 @@
      
      blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
-     // MemCpy: device to host
-     cudaMemcpy(h_output, d_output, sizeof(int)*h_width*h_height*3, cudaMemcpyDeviceToHost);
+     //last error
+     error = cudaGetLastError();
+    if (error != cudaSuccess){
+        fprintf(stderr, "Failed to launch blur (error code %s)!\n", cudaGetErrorString(error));
+        exit(EXIT_FAILURE);
+    }
 
+     // MemCpy: device to host
+     error = cudaMemcpy(h_output, d_output, sizeof(int)*h_width*h_height*3, cudaMemcpyDeviceToHost);
+     if (error != cudaSuccess){
+        fprintf(stderr, "Failed to  to copy from device (error code %s)!\n", cudaGetErrorString(error));
+        exit(EXIT_FAILURE);
+    }
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
