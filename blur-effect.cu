@@ -217,7 +217,7 @@
 
      // Launch kernel 
      
-     blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
+     blur<<<blocks,threadsXblock>>>(d_input,d_output, *d_kernel, *d_threads, *d_width, *d_height);
 
      //last error
      error = cudaGetLastError();
