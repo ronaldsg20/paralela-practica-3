@@ -100,10 +100,10 @@
         printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS X BLOCK> <BLOCKS>\n");
         return -1;
     }
-    h_kernel = atoi(argv[3]);
+    *h_kernel = atoi(argv[3]);
     int threadsXblock = atoi(argv[4]);
     int blocks = atoi(argv[5]);
-    h_threads = threadsXblock* blocks;
+    *h_threads = threadsXblock* blocks;
     String oFile = argv[2];
 
     //read the image and set width and height
@@ -113,8 +113,8 @@
         printf("No image data \n");
         return -1;
     }
-    h_width = input.cols;
-    h_height =input.rows;
+    *h_width = input.cols;
+    *h_height =input.rows;
     // define the output as a clone of input image
     output = input.clone();
     //imwrite( oFile, output ); // just for test
