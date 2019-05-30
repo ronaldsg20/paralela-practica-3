@@ -11,6 +11,8 @@
  #include <stdlib.h>
  #include <cstdint>
  #include <opencv2/opencv.hpp>
+#include "cuPrintf.cuh"
+#include "cuPrintf.cu"
  
   using namespace cv;
   using namespace std;
