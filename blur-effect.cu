@@ -67,7 +67,6 @@
     
     int ini = (int)((int)*width/(int)*totalThreads)*(tn);
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
-	printf("[%d]: Inicio %d  -  Fin  %d- \n",tn,ini,fin);
 
     for (int i = ini; i < fin; i++)
     {
@@ -263,7 +262,10 @@
      }
 
      // save data
-     imwrite( oFile, output );
+     bool s =imwrite( oFile, output );
+     if(s){
+         printf("image was succesfully saved \n")
+     }
 
      // free memory
 
