@@ -264,7 +264,7 @@
      // save data
      bool s =imwrite( oFile, output );
      if(s){
-         printf("image was succesfully saved \n")
+         printf("image was succesfully saved \n");
      }
 
      // free memory
