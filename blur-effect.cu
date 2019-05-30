@@ -60,9 +60,9 @@
  __global__ void blur(int *input,int *output, int *kernel, int *totalThreads, int *width, int *height)
  {   
      
-    int tn = (blockDim.x * blockIdx.x) + threadIdx.x+1;
+    int tn = (blockDim.x * blockIdx.x) + threadIdx.x;
     
-    int ini = (int)((int)*width/(int)*totalThreads)*(tn);
+    int ini = (int)((int)*width/(int)*totalThreads)*(tn-1);
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
 
     int blue,green,red;
