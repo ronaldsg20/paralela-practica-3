@@ -20,7 +20,7 @@
 
   __device__ void aplyBlur(int x, int y, int *kernel,int *w, int *h, int *input, int *output){
     // collect the average data of neighbours 
-    /* int blue,green,red;
+    int blue,green,red;
     blue=green=red=0;
     int n=0;
     int pixel_pos;
@@ -47,7 +47,7 @@
         output[pixel_pos+0]=(blue/n);
         output[pixel_pos+1]=(green/n);
         output[pixel_pos+2]=(red/n);
-    } */
+    }
    
 }
 
@@ -71,10 +71,10 @@
     {
         for (int j = 0; j < (int)*height; j++)
         {
-            //aplyBlur(i,j,kernel, width, height,input, output);
+            aplyBlur(i,j,kernel, width, height,input, output);
 
 
-            
+           /*  
             blue=green=red=0;
             int n=0;
             int pixel_pos;
@@ -101,7 +101,7 @@
                 output[pixel_pos+0]=(blue/n);
                 output[pixel_pos+1]=(green/n);
                 output[pixel_pos+2]=(red/n);
-            }
+            } */
 
 
 
