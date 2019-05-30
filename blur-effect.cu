@@ -262,10 +262,14 @@
      }
 
      // save data
-     bool s =imwrite( oFile, output );
-     if(s){
-         printf("image was succesfully saved \n");
-     }
+    
+     try {
+        imwrite( oFile, output );
+    }
+    catch (runtime_error& ex) {
+        fprintf(stderr, "Exception saving image : %s\n", ex.what());
+        return 1;
+    }
 
      // free memory
 
