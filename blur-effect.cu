@@ -12,8 +12,8 @@
  #include <cstdint>
  #include <opencv2/opencv.hpp>
 
-#include <cuPrintf.cuh>
-#include <cuPrintf.cu>
+//#include <cuPrintf.cuh>
+#include "cuPrintf.cu"
  
   using namespace cv;
   using namespace std;
@@ -225,8 +225,11 @@
     printf("CudaMemcpy host to device done.\n");
 
      // Launch kernel 
-     
+     cudaPrintfInit();
      blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
+
+	cudaPrintfDisplay(stdout, true);
+     cudaPrintfEnd();
 
      //last error
      error = cudaGetLastError();
