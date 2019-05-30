@@ -188,7 +188,7 @@
 
      for(int t =0;t<20;t++){
          for (int k=0;k<20;k++){
-            printf("[%d , %d , %d] ",h_input[(k*h_width*3)+(t*3)+0],h_input[(k*h_width*3)+(t*3)+1], h_input[(k*h_width*3)+(t*3)+2]);
+            printf("[%d,%d,%d] ",h_input[(k*h_width*3)+(t*3)+0],h_input[(k*h_width*3)+(t*3)+1], h_input[(k*h_width*3)+(t*3)+2]);
          }
          printf("\n");
      }
@@ -244,16 +244,16 @@
 
     for(int t =0;t<20;t++){
         for (int k=0;k<20;k++){
-           printf("[%d , %d , %d] ",h_output[(k*h_width*3)+(t*3)+0],h_output[(k*h_width*3)+(t*3)+1], h_output[(k*h_width*3)+(t*3)+2]);
+           printf("[%d,%d ,%d] ",h_output[(k*h_width*3)+(t*3)+0],h_output[(k*h_width*3)+(t*3)+1], h_output[(k*h_width*3)+(t*3)+2]);
         }
         printf("\n");
     }
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
-        output.at<Vec3b>(i, j)[0] = h_output[i * h_width * 3 + j * 3 + 0];
-        output.at<Vec3b>(i, j)[1] = h_output[i * h_width * 3 + j * 3 + 1];
-        output.at<Vec3b>(i, j)[2] = h_output[i * h_width * 3 + j * 3 + 2];
+        output.at<Vec3b>(i, j)[0] = h_output[(i*h_width*3) + (j * 3) + 0];
+        output.at<Vec3b>(i, j)[1] = h_output[(i*h_width*3) + (j * 3) + 1];
+        output.at<Vec3b>(i, j)[2] = h_output[(i*h_width*3) + (j * 3) + 2];
        }
      }
 
