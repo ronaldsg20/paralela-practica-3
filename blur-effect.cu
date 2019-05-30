@@ -86,7 +86,7 @@
                 for (int b = j-(((int)*kernel)/2); b < j+(((int)*kernel)/2); b++)
                 {
                     //check if the point is in the image limits
-                    if(0<=a && a<((int)*width)-1 && 0<=b && b<((int)*h)-1){
+                    if(0<=a && a<((int)*width)-1 && 0<=b && b<((int)*height)-1){
                         pixel_pos = (a*((int)*width)*3)+(b*3);
                         blue += input[pixel_pos+0];
                         green += input[pixel_pos+1];
