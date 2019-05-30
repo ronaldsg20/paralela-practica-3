@@ -33,7 +33,7 @@
         {
             //check if the point is in the image limits
             if(0<=i && i<((int)*w)-1 && 0<=j && j<((int)*h)-1){
-                pixel_pos = (i*((int)*w)*3)+(j*3);
+                pixel_pos = (j*((int)*w)*3)+(i*3);
                 blue += input[pixel_pos+0];
                 green += input[pixel_pos+1];
                 red += input[pixel_pos+2];
@@ -41,7 +41,7 @@
             }
         }
     }
-    pixel_pos = (x*((int)*w)*3)+(y*3);
+    pixel_pos = (y*((int)*w)*3)+(x*3);
     if(n!=0){
          //write the average on the output image
         output[pixel_pos+0]=(blue/n);
@@ -72,39 +72,6 @@
         for (int j = 0; j < (int)*height; j++)
         {
             aplyBlur(i,j,kernel, width, height,input, output);
-
-
-           /*  
-            blue=green=red=0;
-            int n=0;
-            int pixel_pos;
-            //int k= (int)*kernel;
-            //int wt = (int)*w;
-        
-            for(int a = i - (((int)*kernel)/2); a < i+(((int)*kernel)/2); a++)
-            {    
-                for (int b = j-(((int)*kernel)/2); b < j+(((int)*kernel)/2); b++)
-                {
-                    //check if the point is in the image limits
-                    if(0<=a && a<((int)*width)-1 && 0<=b && b<((int)*height)-1){
-                        pixel_pos = (a*((int)*width)*3)+(b*3);
-                        blue += input[pixel_pos+0];
-                        green += input[pixel_pos+1];
-                        red += input[pixel_pos+2];
-                        n++;
-                    }
-                }
-            }
-            pixel_pos = (i*((int)*width)*3)+(j*3);
-            if(n!=0){
-                 //write the average on the output image
-                output[pixel_pos+0]=(blue/n);
-                output[pixel_pos+1]=(green/n);
-                output[pixel_pos+2]=(red/n);
-            } */
-
-
-
 
 
         }
