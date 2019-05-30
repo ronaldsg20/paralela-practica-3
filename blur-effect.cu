@@ -187,13 +187,6 @@
        }
      }
 
-     for(int t =0;t<20;t++){
-         for (int k=0;k<20;k++){
-            printf("[%d,%d,%d] ",h_input[(k*h_width*3)+(t*3)+0],h_input[(k*h_width*3)+(t*3)+1], h_input[(k*h_width*3)+(t*3)+2]);
-         }
-         printf("\n");
-     }
-
      // MemCpy: host to device
 
      error = cudaMemcpy(d_input, h_input, size, cudaMemcpyHostToDevice);
@@ -238,7 +231,7 @@
     }
 
      // MemCpy: device to host
-     error = cudaMemcpy(h_output, d_output, sizeof(int)*h_width*h_height*3, cudaMemcpyDeviceToHost);
+     error = cudaMemcpy(h_output, d_output, size, cudaMemcpyDeviceToHost);
      if (error != cudaSuccess){
         fprintf(stderr, "Failed to  to copy from device (error code %s)!\n", cudaGetErrorString(error));
         exit(EXIT_FAILURE);
