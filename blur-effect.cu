@@ -20,7 +20,7 @@
 
   __device__ void aplyBlur(int x, int y, int *kernel,int *w, int *h, int *input, int *output){
     // collect the average data of neighbours 
-    int blue,green,red;
+    /* int blue,green,red;
     blue=green=red=0;
     int n=0;
     int pixel_pos;
@@ -47,7 +47,7 @@
         output[pixel_pos+0]=(blue/n);
         output[pixel_pos+1]=(green/n);
         output[pixel_pos+2]=(red/n);
-    }
+    } */
    
 }
 
@@ -64,11 +64,49 @@
     
     int ini = (int)((int)*width/(int)*totalThreads)*(tn);
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
+
+    int blue,green,red;
+
     for (int i = ini; i < fin; i++)
     {
         for (int j = 0; j < (int)*height; j++)
         {
-            aplyBlur(i,j,kernel, width, height,input, output);
+            //aplyBlur(i,j,kernel, width, height,input, output);
+
+
+            
+            blue=green=red=0;
+            int n=0;
+            int pixel_pos;
+            //int k= (int)*kernel;
+            //int wt = (int)*w;
+        
+            for(int a = i - (((int)*kernel)/2); a < i+(((int)*kernel)/2); a++)
+            {    
+                for (int b = j-(((int)*kernel)/2); b < j+(((int)*kernel)/2); b++)
+                {
+                    //check if the point is in the image limits
+                    if(0<=a && a<((int)*width)-1 && 0<=b && b<((int)*h)-1){
+                        pixel_pos = (a*((int)*width)*3)+(b*3);
+                        blue += input[pixel_pos+0];
+                        green += input[pixel_pos+1];
+                        red += input[pixel_pos+2];
+                        n++;
+                    }
+                }
+            }
+            pixel_pos = (i*((int)*width)*3)+(j*3);
+            if(n!=0){
+                 //write the average on the output image
+                output[pixel_pos+0]=(blue/n);
+                output[pixel_pos+1]=(green/n);
+                output[pixel_pos+2]=(red/n);
+            }
+
+
+
+
+
         }
     }
      
