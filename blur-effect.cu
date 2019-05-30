@@ -283,13 +283,15 @@
     }
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
-        pixel = Vec3b(h_output[(j*h_width*3)+(i*3)+0],h_output[(j*h_width*3)+(i*3)+1], h_output[(j*h_width*3)+(i*3)+2]);
-        output.at<Vec3b>(Point(i,j))= pixel;
+        
+        output.at<Vec3b>(i, j)[0] = h_output[i * width * 3 + j * 3 + 0];
+        output.at<Vec3b>(i, j)[1] = h_output[i * width * 3 + j * 3 + 1];
+        output.at<Vec3b>(i, j)[2] = h_output[i * width * 3 + j * 3 + 2];
        }
      }
 
      // save data
-     //imwrite( oFile, output );
+     imwrite( oFile, output );
 
      // free memory
 
