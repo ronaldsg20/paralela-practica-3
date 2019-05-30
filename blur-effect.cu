@@ -67,7 +67,7 @@
     
     int ini = (int)((int)*width/(int)*totalThreads)*(tn-1);
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
-	cuPrintf("[%d]: Inicio %d  -  Fin  %d- ",tn,ini,fin);
+	printf("[%d]: Inicio %d  -  Fin  %d- ",tn,ini,fin);
 
     for (int i = ini; i < fin; i++)
     {
