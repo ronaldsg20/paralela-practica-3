@@ -65,7 +65,7 @@
      
     int tn = (blockDim.x * blockIdx.x) + threadIdx.x;
     
-    int ini = (int)((int)*width/(int)*totalThreads)*(tn-1);
+    int ini = (int)((int)*width/(int)*totalThreads)*(tn);
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
 	printf("[%d]: Inicio %d  -  Fin  %d- \n",tn,ini,fin);
 
