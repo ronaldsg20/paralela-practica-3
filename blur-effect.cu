@@ -65,7 +65,6 @@
     int ini = (int)((int)*width/(int)*totalThreads)*(tn-1);
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
 
-    int blue,green,red;
 
     for (int i = ini; i < fin; i++)
     {
@@ -251,9 +250,9 @@
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
-        output.at<Vec3b>(i, j)[0] = h_output[(i*h_width*3) + (j * 3) + 0];
-        output.at<Vec3b>(i, j)[1] = h_output[(i*h_width*3) + (j * 3) + 1];
-        output.at<Vec3b>(i, j)[2] = h_output[(i*h_width*3) + (j * 3) + 2];
+        output.at<Vec3b>(i, j)[0] = h_output[(j*h_width*3) + (i * 3) + 0];
+        output.at<Vec3b>(i, j)[1] = h_output[(j*h_width*3) + (i * 3) + 1];
+        output.at<Vec3b>(i, j)[2] = h_output[(j*h_width*3) + (i * 3) + 2];
        }
      }
 
