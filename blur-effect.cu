@@ -109,7 +109,7 @@
      //read parameters
      if ( argc != 5 )
     {
-        printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS>\n");
+        printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS_PER_BLOCK>\n");
         return -1;
     }
     h_kernel = atoi(argv[3]);
@@ -136,7 +136,7 @@
 
     printf(" Processing image %s \n width: %d  - Heigh : %d \n",argv[1],h_width,h_height);
 
-    printf("Kernel : %d   Threads: %d \n",h_kernel,h_threads);
+    printf("Kernel : %d   Threads per block: %d \n",h_kernel,h_threads);
 
     int *d_input;
     int *d_output;
@@ -230,10 +230,9 @@
     cudaGetDeviceProperties(&deviceProp,0);
 
     int blocks = deviceProp.multiProcessorCount;
-    int threadsXblock = h_threads/blocks;
-    printf("Blocks : %d   -  threads per block %d",blocks,threadsXblock);
+    printf("Blocks : %d   -  threads per block %d  - TOTAL threads: %d",blocks,threadsXblock,blocks*threadsXblock);
      //cudaPrintfInit();
-     blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
+     blur<<<blocks,h_threads>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
 	//cudaPrintfDisplay(stdout, true);
      //cudaPrintfEnd();
