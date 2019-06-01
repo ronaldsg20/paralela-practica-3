@@ -230,7 +230,7 @@
     cudaGetDeviceProperties(&deviceProp,0);
 
     int blocks = deviceProp.multiProcessorCount;
-    printf("Blocks : %d   -  threads per block %d  - TOTAL threads: %d",blocks,threadsXblock,blocks*threadsXblock);
+    printf("Blocks : %d   -  threads per block %d  - TOTAL threads: %d",blocks,h_threads,blocks*h_threads);
      //cudaPrintfInit();
      blur<<<blocks,h_threads>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
