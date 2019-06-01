@@ -107,7 +107,7 @@
 
     cudaError_t error = cudaSuccess;
      //read parameters
-     if ( argc != 6 )
+     if ( argc != 5 )
     {
         printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS>\n");
         return -1;
