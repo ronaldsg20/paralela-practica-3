@@ -116,13 +116,18 @@
 
     //read the image and set width and height
     input = imread( argv[1], IMREAD_COLOR );
+    
     if ( !input.data )
     {
         printf("No image data \n");
         return -1;
     }
-    h_width = input.cols;
-    h_height =input.rows;
+    //h_width = input.cols;
+    //h_height =input.rows;
+
+    h_width = input.rows;
+    h_height =input.cols;
+    
     // define the output as a clone of input image
     output = input.clone();
     //imwrite( oFile, output ); // just for test
@@ -217,6 +222,7 @@
     printf("CudaMemcpy host to device done.\n");
 
      // Launch kernel 
+     
      //cudaPrintfInit();
      blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
@@ -237,14 +243,15 @@
         exit(EXIT_FAILURE);
     }
 
-    printf("MODIFIED IMAGE \n");
+    /* printf("MODIFIED IMAGE \n");
 
     for(int t =0;t<20;t++){
         for (int k=0;k<20;k++){
            printf("[%d,%d ,%d] ",h_output[(k*h_width*3)+(t*3)+0],h_output[(k*h_width*3)+(t*3)+1], h_output[(k*h_width*3)+(t*3)+2]);
         }
         printf("\n");
-    }
+    } */
+    
      for(int i=0;i<h_width;i++){
        for(int j=0;j<h_height;j++){
         
