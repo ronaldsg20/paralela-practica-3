@@ -6,6 +6,8 @@
  #include <stdio.h>
  #include <math.h>
  // For the CUDA runtime routines (prefixed with "cuda_")
+ #include <cuda.h>
+ #include <helper_cuda.h>
  #include <cuda_runtime.h>
 
  #include <stdlib.h>
@@ -134,7 +136,7 @@
 
     printf(" Processing image %s \n width: %d  - Heigh : %d \n",argv[1],h_width,h_height);
 
-    printf("Kernel : %d   Threads x Block: %d   # of Blocks: %d \n",h_kernel,threadsXblock,blocks);
+    printf("Kernel : %d   Threads: %d \n",h_kernel,h_threads);
 
     int *d_input;
     int *d_output;
