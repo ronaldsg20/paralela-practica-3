@@ -67,16 +67,18 @@
     
     int ini = (int)((int)*width/(int)*totalThreads)*(tn);
     int fin = (int)((int)*width/(int)*totalThreads)+ini;
-
-    for (int i = ini; i < fin; i++)
-    {
-        for (int j = 0; j < (int)*height; j++)
+    if(tn<*width){
+        for (int i = ini; i < fin; i++)
         {
+            for (int j = 0; j < (int)*height; j++)
+            {
             aplyBlur(i,j,kernel, width, height,input, output);
 
 
+            }
         }
     }
+    
      
  }
  
@@ -105,13 +107,11 @@
      //read parameters
      if ( argc != 6 )
     {
-        printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS X BLOCK> <BLOCKS>\n");
+        printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL> <THREADS>\n");
         return -1;
     }
     h_kernel = atoi(argv[3]);
-    int threadsXblock = atoi(argv[4]);
-    int blocks = atoi(argv[5]);
-    h_threads = threadsXblock* blocks;
+    h_threads = atoi(argv[4]);
     String oFile = argv[2];
 
     //read the image and set width and height
@@ -222,7 +222,13 @@
     printf("CudaMemcpy host to device done.\n");
 
      // Launch kernel 
-     
+
+    cudaSetDevice(0);
+    cudaDeviceProp deviceProp;
+    cudaGetDeviceProperties(&deviceProp,0);
+
+    int blocks = deviceProp.multiProcessorCount;
+    int threadsXblock = h_threads/blocks;
      //cudaPrintfInit();
      blur<<<blocks,threadsXblock>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
