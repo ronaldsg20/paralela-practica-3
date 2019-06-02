@@ -106,7 +106,7 @@
     // handle errors
 
     cudaError_t error = cudaSuccess;
-     //read parameters
+     //********************read parameters**********************
      if ( argc != 4 )
     {
         printf("usage: ./blur-effect <Image_Path> <Image_out_Path> <KERNEL>n");
@@ -132,14 +132,25 @@
     h_kernel = atoi(argv[3]);
 
     //h_threads = atoi(argv[4]);
-    h_threads = h_width;
+
 
     // define the output as a clone of input image
     output = input.clone();
     //imwrite( oFile, output ); // just for test
 
+
+    cudaSetDevice(0);
+    cudaDeviceProp deviceProp;
+    cudaGetDeviceProperties(&deviceProp,0);
+
+   int blocks = deviceProp.multiProcessorCount;
+
+   h_threads = h_width/blocks;
+   //printf("Blocks : %d   -  threads per block %d  - TOTAL threads: %d",blocks,h_threads,blocks*h_threads);
+
     printf(" Processing image %s \n width: %d  - Heigh : %d \n",argv[1],h_width,h_height);
 
+    // ************************ image pointers ***********************************
     int *d_input;
     int *d_output;
     int *h_input;
@@ -226,17 +237,8 @@
     printf("CudaMemcpy host to device done.\n");
 
      // Launch kernel 
-     cudaSetDevice(0);
-     cudaDeviceProp deviceProp;
-     cudaGetDeviceProperties(&deviceProp,0);
-
-    int blocks = deviceProp.multiProcessorCount;
-    //printf("Blocks : %d   -  threads per block %d  - TOTAL threads: %d",blocks,h_threads,blocks*h_threads);
-     //cudaPrintfInit();
      blur<<<blocks,h_threads>>>(d_input,d_output, d_kernel, d_threads, d_width, d_height);
 
-	//cudaPrintfDisplay(stdout, true);
-     //cudaPrintfEnd();
 
      //last error
      error = cudaGetLastError();
