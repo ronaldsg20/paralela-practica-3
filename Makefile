@@ -1,2 +1,2 @@
 all:
-	/usr/local/cuda-8.0/bin/nvcc blur-effect.cu `pkg-config opencv --cflags --libs opencv` -o blur-effect
+	nvcc blur-effect.cu `pkg-config opencv --cflags --libs opencv` -I "/usr/local/cuda/samples/common/inc" -std=c++11 -o blur-effect
