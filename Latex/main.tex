@@ -152,11 +152,72 @@ Como se puede observar en las gráficas anteriores el time response del código 
 Otra medida que se considero determinar para medir el rendimiento de los hilos en el programa es el speed up que para este caso se calculo como la división entre el mejor tiempo en CPU contra con los mejores tiempos en GPU \\
 A continuación se presentan las gráficas correspondientes:
 
-\begin{figure}[H]
-  \includegraphics[width=\linewidth]{memev.jpg}
-  \caption{Speed Up}
-  \label{fig:boat2}
-\end{figure}
+\begin{itemize}
+    \item \textbf{Imagen de 720p}
+    
+\begin{tikzpicture}
+\begin{axis}[
+xticklabels={},
+extra x ticks={4,6,8,10,12,14},
+title={Speed Up 720p},
+xlabel={Tamaño del kernel},
+ylabel={Tiempo},
+nodes near coords, 
+ every node near coord/.append style={font=\tiny,yshift=-1.6pt},
+ nodes near coords style={/pgf/number format/.cd,precision=3},
+ legend pos=south east,
+]
+\addplot coordinates { (4,0.690) (6,0.978) (8,1.480) (10,1.721) (12,2) (14,2.225) };
+\addplot coordinates { (4,1.480) (6,1.837) (8,2.02) (10,2.225) (12,2.467) (14,2.787) };
+\addlegendentry{Speed Up GPU-CPU}
+\addlegendentry{Speed Up CPU-CPU}
+\end{axis}
+\end{tikzpicture}
+ 
+ \item \textbf{Imagen de 1080p}  
+ 
+ \begin{tikzpicture}
+\begin{axis}[
+xticklabels={},
+extra x ticks={4,6,8,10,12,14},
+title={Speed Up 1080p},
+xlabel={Tamaño del kernel},
+ylabel={Tiempo},
+nodes near coords, 
+ every node near coord/.append style={font=\tiny,yshift=-1.6pt},
+ nodes near coords style={/pgf/number format/.cd,precision=3},
+ legend pos=south east,
+]
+\addplot coordinates { (4,1.245) (6,1.689) (8,2.130) (10,2.304) (12,2.408) (14,2.470) };
+\addplot coordinates { (4,1.779) (6,2.277) (8,2.562) (10,2.772) (12,2.921) (14,2.955) };
+\addlegendentry{Speed Up GPU-CPU}
+\addlegendentry{Speed Up CPU-CPU}
+\end{axis}
+\end{tikzpicture}
+
+\item \textbf{Imagen de 4k}
+
+ \begin{tikzpicture}
+\begin{axis}[
+xticklabels={},
+extra x ticks={4,6,8,10,12,14},
+title={Speed Up 4k},
+xlabel={Tamaño del kernel},
+ylabel={Tiempo},
+nodes near coords, 
+ every node near coord/.append style={font=\tiny,yshift=-1.6pt},
+ nodes near coords style={/pgf/number format/.cd,precision=3},
+ legend pos=north west,
+]
+\addplot coordinates { (4,2.889) (6,4.140) (8,5.238) (10,5.978) (12,6.766) (14,6.467) };
+\addplot coordinates { (4,2.256) (6,2.622) (8,2.850) (10,2.98) (12,3.055) (14,3.144) };
+\addlegendentry{Speed Up GPU-CPU}
+\addlegendentry{Speed Up CPU-CPU}
+\end{axis}
+\end{tikzpicture}
+
+\end{itemize}
+
 
 \section*{Conclusiones.}
 \begin{itemize}
